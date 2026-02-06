@@ -1,12 +1,15 @@
+import Search from "./Search";
+
 function Header() {
   return (
-    <header className="inset-x-0 h-10 flex flex-row items-center justify-between p-10 bg-[#F2EAD7]">
-      <h1 className="font-display text-[#473932]">Coffee</h1>
-      <ul className="flex flex-row gap-10">
+    <header className="h-16 flex items-center justify-between px-10 bg-[#F2EAD7]">
+      <h1 className="font-display text-[#473932] text-2xl">Coffee</h1>
+      <ul className="flex items-center gap-8 text-lg">
         <li>Home</li>
         <li>Menu</li>
         <li>Media</li>
         <li>Contacts</li>
+        <Search />
       </ul>
     </header>
   );

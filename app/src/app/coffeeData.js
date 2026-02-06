@@ -1,4 +1,3 @@
-// src/data/coffeeData.js
 const coffeeData = [
   {
     id: 1,
@@ -16,7 +15,7 @@ const coffeeData = [
     id: 3,
     name: "Cappuccino",
     image: "/cappuccino.png",
-    price: 3.45
+    price: 3.15
   }
 ];
 
