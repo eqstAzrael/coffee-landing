@@ -1,4 +1,4 @@
-export default function FacebookIcon({ size = 24, className = '' }) {
+export default function FacebookIcon({ size = 24, className = "" }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
