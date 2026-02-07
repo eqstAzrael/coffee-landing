@@ -1,23 +1,30 @@
-/** biome-ignore-all lint/a11y/useButtonType: <explanation> */
 import Image from "next/image"; 
 import coffeeData from '../coffeeData';
 import Link from "next/link";
 
-
 function CoffeeList() {
   return (
-    <div className="flex flex-row justify-evenly gap-30">
+    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 w-full max-w-7xl px-4">
       {coffeeData.map(coffee => (
-        <div key={coffee.id} className="flex flex-col justify-center w-70 items-center bg-[#E2BFA1] rounded-3xl p-5 shadow gap-31">
-            <Image src={coffee.image} alt={coffee.name} width={736/4} height={736/4}/>
-          <h2 className='font-light'>{coffee.name}</h2>
-          <span>${coffee.price}</span>
-          <Link href={`/coffee/${coffee.id}`} className="bg-[#452812] font-light text-center text-white rounded-3xl p-2 w-30">
+        <li key={coffee.id} className="flex flex-col justify-center items-center bg-[#E2BFA1] rounded-3xl p-6 shadow-md gap-4 transition-transform hover:scale-105">
+          <Image 
+            src={coffee.image} 
+            alt={coffee.name} 
+            width={184} 
+            height={184} 
+            className="object-contain"
+          />
+          <h2 className="font-light text-xl text-[#452812]">{coffee.name}</h2>
+          <span className="font-medium text-lg">${coffee.price}</span>
+          <Link 
+            href={`/coffee/${coffee.id}`} 
+            className="bg-[#452812] font-light text-center text-white rounded-full py-2 px-8 w-full max-w-[150px] hover:bg-[#321d0d] transition-colors"
+          >
             BUY NOW
           </Link>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 

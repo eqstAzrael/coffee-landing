@@ -1,9 +1,3 @@
-/** biome-ignore-all lint/a11y/useButtonType: <explanation> */
-/** biome-ignore-all lint/correctness/useJsxKeyInIterable: <explanation> */
-/** biome-ignore-all lint/performance/noImgElement: <explanation> */
-/** biome-ignore-all lint/a11y/useKeyWithClickEvents: <explanation> */
-/** biome-ignore-all lint/a11y/noStaticElementInteractions: <explanation> */
-/** biome-ignore-all lint/a11y/noSvgWithoutTitle: <explanation> */
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -27,24 +21,24 @@ function Search() {
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
-    <li ref={containerRef} className="relative">
-      <div className="flex items-center gap-3">
+    <div ref={containerRef} className="relative flex items-center">
+      <div className="flex items-center">
         <button
           onClick={(e) => {
             e.stopPropagation();
             setOpen(!open);
           }}
-          className="p-2"
-          aria-label="Поиск"
+          className="p-2 flex items-center justify-center hover:bg-[#473932]/5 rounded-full transition-colors"
+          aria-label="Search"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className={`w-6 h-6 text-[#473932] transition-transform duration-300 ${open ? "rotate-360" : ""}`}
+            className={`w-6 h-6 text-[#473932] transition-transform duration-300 ${open ? "rotate-90" : ""}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -59,57 +53,55 @@ function Search() {
         </button>
 
         <div
-          className={`transition-all duration-300 overflow-hidden ${open ? "w-64 opacity-100" : "w-0 opacity-0"}`}
+          className={`transition-all duration-300 overflow-hidden ${
+            open ? "w-40 sm:w-64 opacity-100 ml-2" : "w-0 opacity-0"
+          }`}
         >
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Search..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full px-4 py-2 text-[#473932] bg-white rounded-full border border-[#473932]/20 focus:outline-none"
-            onClick={(e) => e.stopPropagation()}
+            className="w-full px-4 py-1.5 text-[#473932] bg-white rounded-full border border-[#473932]/20 focus:outline-none focus:border-[#473932]/50 text-sm"
           />
+        </div>
+      </div>
 
-
-          {query && results.length > 0 && (
-            <div className="absolute top-12 left-0 w-full bg-white rounded-lg shadow-lg mt-1 z-50 max-h-80 overflow-y-auto">
-              {results.map((coffee) => (
-                <Link key={coffee.id} href={`/coffee/${coffee.id}`}>
-                  <div
-                    key={coffee.id}
-                    className="flex items-center gap-10 px-4 py-3 hover:bg-[#F2EAD7]/50 cursor-pointer border-b border-[#473932]/10 last:border-b-0"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      console.log("Selected:", coffee.name);
-                      setOpen(false);
-                      setQuery("");
-                    }}
-                  >
-                    <img
-                      src={coffee.image}
-                      alt={coffee.name}
-                      className="w-10 h-10 rounded-full object-cover"
-                    />
-                    <div className="flex-1">
-                      <div className="font-medium">{coffee.name}</div>
-                      <div className="text-sm text-gray-600">
-                        ${coffee.price.toFixed(2)}
-                      </div>
+      {open && query && (
+        <div className="absolute top-12 right-0 w-64 sm:w-72 bg-white rounded-xl shadow-xl mt-1 z-[60] max-h-[70vh] overflow-y-auto border border-[#473932]/10">
+          {results.length > 0 ? (
+            results.map((coffee) => (
+              <Link 
+                key={coffee.id} 
+                href={`/coffee/${coffee.id}`}
+                onClick={() => {
+                  setOpen(false);
+                  setQuery("");
+                }}
+              >
+                <div className="flex items-center gap-4 px-4 py-3 hover:bg-[#F2EAD7]/50 transition-colors border-b border-[#473932]/5 last:border-b-0">
+                  <img
+                    src={coffee.image}
+                    alt={coffee.name}
+                    className="w-10 h-10 rounded-full object-cover shadow-sm"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-[#473932] truncate">{coffee.name}</div>
+                    <div className="text-sm text-gray-500">
+                      ${coffee.price.toFixed(2)}
                     </div>
                   </div>
-                </Link>
-              ))}
-            </div>
-          )}
-
-          {query && results.length === 0 && (
-            <div className="absolute top-12 left-0 w-full bg-white rounded-lg shadow-lg mt-1 z-50 px-4 py-3">
-              <div className="text-gray-600 text-center">Not Found...</div>
+                </div>
+              </Link>
+            ))
+          ) : (
+            <div className="px-4 py-6 text-gray-500 text-center text-sm">
+              No results found for "{query}"
             </div>
           )}
         </div>
-      </div>
-    </li>
+      )}
+    </div>
   );
 }
 
