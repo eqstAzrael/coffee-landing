@@ -7,6 +7,7 @@
 import { useState } from "react";
 import SearchIcon from "../components/icons/SearchIcon";
 import coffeeData from "../coffeeData";
+import Link from "next/link";
 
 
 function Menu() {
@@ -53,9 +54,12 @@ function Menu() {
                     <p className="text-[#473932] text-lg mb-3">
                         ${coffee.price.toFixed(2)}
                     </p>
-                    <button className="bg-[#E2BFA1] text-[#473932] px-6 py-2 rounded-3xl font-bold hover:opacity-90">
-                        BUY
-                    </button>
+                    <Link 
+                      href={`/coffee/${coffee.id}`}
+                      className="bg-[#E2BFA1] text-[#473932] px-6 py-2 rounded-3xl font-bold hover:opacity-90 no-underline"
+                    >
+                      BUY
+                    </Link>
                 </div>
             ))}
         </div>

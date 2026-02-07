@@ -9,7 +9,7 @@ function Header() {
         <li><Link href="/">Home</Link></li>
         <li><Link href="/menu">Menu</Link></li>
         <li><Link href="/about-us">About Us</Link></li>
-        <li>Contacts</li>
+        <li><Link href="/contacts">Contacts</Link></li>
         <Search />
       </ul>
     </header>

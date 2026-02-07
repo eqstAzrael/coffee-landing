@@ -1,4 +1,5 @@
 /** biome-ignore-all lint/a11y/useButtonType: <explanation> */
+/** biome-ignore-all lint/correctness/useJsxKeyInIterable: <explanation> */
 /** biome-ignore-all lint/performance/noImgElement: <explanation> */
 /** biome-ignore-all lint/a11y/useKeyWithClickEvents: <explanation> */
 /** biome-ignore-all lint/a11y/noStaticElementInteractions: <explanation> */
@@ -7,6 +8,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import coffeeData from "../coffeeData.js";
+import Link from "next/link.js";
 
 function Search() {
   const [open, setOpen] = useState(false);
@@ -68,37 +70,38 @@ function Search() {
             onClick={(e) => e.stopPropagation()}
           />
 
-          {/* Результаты */}
+
           {query && results.length > 0 && (
             <div className="absolute top-12 left-0 w-full bg-white rounded-lg shadow-lg mt-1 z-50 max-h-80 overflow-y-auto">
               {results.map((coffee) => (
-                <div
-                  key={coffee.id}
-                  className="flex items-center gap-10 px-4 py-3 hover:bg-[#F2EAD7]/50 cursor-pointer border-b border-[#473932]/10 last:border-b-0"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    console.log("Selected:", coffee.name);
-                    setOpen(false);
-                    setQuery("");
-                  }}
-                >
-                  <img
-                    src={coffee.image}
-                    alt={coffee.name}
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
-                  <div className="flex-1">
-                    <div className="font-medium">{coffee.name}</div>
-                    <div className="text-sm text-gray-600">
-                      ${coffee.price.toFixed(2)}
+                <Link key={coffee.id} href={`/coffee/${coffee.id}`}>
+                  <div
+                    key={coffee.id}
+                    className="flex items-center gap-10 px-4 py-3 hover:bg-[#F2EAD7]/50 cursor-pointer border-b border-[#473932]/10 last:border-b-0"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      console.log("Selected:", coffee.name);
+                      setOpen(false);
+                      setQuery("");
+                    }}
+                  >
+                    <img
+                      src={coffee.image}
+                      alt={coffee.name}
+                      className="w-10 h-10 rounded-full object-cover"
+                    />
+                    <div className="flex-1">
+                      <div className="font-medium">{coffee.name}</div>
+                      <div className="text-sm text-gray-600">
+                        ${coffee.price.toFixed(2)}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}
 
-          {/* Нет результатов */}
           {query && results.length === 0 && (
             <div className="absolute top-12 left-0 w-full bg-white rounded-lg shadow-lg mt-1 z-50 px-4 py-3">
               <div className="text-gray-600 text-center">Not Found...</div>
