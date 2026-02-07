@@ -8,7 +8,7 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 h-16 flex items-center justify-between px-6 md:px-10 bg-[#F2EAD7] shadow-sm">
+    <header className="sticky top-0 z-50 h-16 flex items-center justify-between px-6 md:px-10 bg-[#F2EAD7]">
       <h1 className="font-display text-[#473932] text-2xl z-50">
         <Link href="/">Coffee</Link>
       </h1>
